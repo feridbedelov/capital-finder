@@ -1,9 +1,10 @@
 import React from 'react'
-import { useDispatch } from '../context/MainContext'
+import { useDispatch, useStore } from '../context/MainContext'
 
 function CapitalItem({ active, capital }) {
 
     const dispatch = useDispatch()
+    const { selectedCapital } = useStore()
 
     const selectCapital = (capital) => {
         dispatch({ type: "selectCapital", payload: { capital } })
@@ -11,7 +12,11 @@ function CapitalItem({ active, capital }) {
     const deleteCapital = (e, capital) => {
         e.preventDefault()
         e.stopPropagation()
-        dispatch({ type: "deleteCapital", payload: capital })
+        if (capital.name === selectedCapital.name) {
+            dispatch({ type: "deleteSelectedCapital", payload: capital })
+        } else {
+            dispatch({ type: "deleteCapital", payload: capital })
+        }
     }
 
     return (

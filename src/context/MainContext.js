@@ -19,6 +19,11 @@ const mainReducer = (state, action) => {
         case "deleteCapital":
             return {
                 ...state,
+                capitalList: state.capitalList.filter(cp => cp.name !== action.payload.name)
+            }
+        case "deleteSelectedCapital":
+            return {
+                ...state,
                 selectedCapital: null,
                 capitalList: state.capitalList.filter(cp => cp.name !== action.payload.name)
             }
